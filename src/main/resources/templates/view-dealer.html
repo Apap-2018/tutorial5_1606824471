@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>View Dealer</title>
+	<object th:include="fragments/fragment :: title" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
@@ -18,7 +18,7 @@
 	</form>
 	<br>
 	<form th:action="@{/car/delete}" th:object="${dealer}" method="POST">
-		<table>
+		<table width="500">
 			<thead>
 				<tr>
 					<th>No.</th>
@@ -34,7 +34,8 @@
 					<td th:text="${iterationStatus.count}"></td>
 					<td th:text="${car.brand}"></td>
 					<td th:text="${car.type}"></td>
-					<td th:if="${car.price} >= 1000000000 ? 'Diatas 1M' : 'Dibawah 1M'"></td>
+					<td th:if="${car.price} >=1000000000">Diatas 1M</td>
+       				<td th:unless="${car.price} >= 1000000000">Dibawah 1M</td>
 					<td th:text="${car.amount}"></td>
 					<td>
 						<input type="checkbox" th:field="*{listCar}" th:value="${car.id}" />
