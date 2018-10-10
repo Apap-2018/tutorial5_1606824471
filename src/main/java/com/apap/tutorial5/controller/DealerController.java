@@ -33,13 +33,15 @@ public class DealerController {
 	private CarService carService;
 	
 	@RequestMapping("/")
-	private String home() {
+	private String home(Model model) {
+		model.addAttribute("title", "Home");
 		return "home";
 	}
 	
 	@RequestMapping(value = "/dealer/add", method = RequestMethod.GET)
 	private String add(Model model) {
 		model.addAttribute("dealer", new DealerModel());
+		model.addAttribute("title", "Add Dealer");
 		return "addDealer";
 	}
 	
@@ -91,13 +93,15 @@ public class DealerController {
 		List<DealerModel> allDealer = dealerService.findAll();
 	
 		model.addAttribute("dealerlist", allDealer);
-	
+		model.addAttribute("title", "All Dealer");
+		
 		return "viewall-dealer";
 	}
 	
 	@RequestMapping(value = "/dealer/delete/{idDealer}", method = RequestMethod.GET)
 	private String deleteCar(@PathVariable(value = "idDealer") long idDealer, Model model) {
 		dealerService.deleteDealer(idDealer);
+		model.addAttribute("title", "Delete Dealer");
 		return "delete";
 	}
 
@@ -106,12 +110,14 @@ public class DealerController {
 		DealerModel dealer =  dealerService.getDealerDetailById(id).get();
 		model.addAttribute("dealer", dealer);
 		model.addAttribute("Iddealer", "ID Dealer:"+id);
+		model.addAttribute("title", "Update Dealer");
 		return "updateDealer";
 	}
 	
 	@RequestMapping(value = "/dealer/update/{id}", method = RequestMethod.POST)
-	private String updateDealerSubmit(@PathVariable(value = "id") Long id, @ModelAttribute Optional<DealerModel> dealer) {
+	private String updateDealerSubmit(@PathVariable(value = "id") Long id, @ModelAttribute Optional<DealerModel> dealer, Model model) {
 		dealerService.updateDealer(id, dealer.get());
+		model.addAttribute("title", "Update");
 		return "update";
 	}
 }
