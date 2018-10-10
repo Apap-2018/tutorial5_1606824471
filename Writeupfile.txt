@@ -1,0 +1,3 @@
+perbedaan antara th:include dengan th:replace
+th: include = akan menyertakan isi fragmen ke dalam tag host-nya
+th: replace = akan menggantikan tag host dengan fragmen
